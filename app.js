@@ -3,7 +3,7 @@ const ejs = require("ejs")
 const bodyParser = require('body-parser')
 const https = require('https');
 const app = express()
-var items = ["Sample Item"]
+var items = ["Sample Item", "type /d to delete an item", "The maximum limit is 7 items."]
 var limitReached = false;
 var pattern = ''
 
@@ -25,6 +25,17 @@ app.get("/", function(req, res){
 app.post("/", function(req, res){
   var item = req.body.newItem;
   items.push(item)
+  if (items[items.length-1]==='/d') {
+    items.pop()
+    items.pop()
+  }
+  if (items.length==7){
+    limitReached = false
+    pattern = "pattern=/d"
+  }
+  else{
+    pattern=''
+  }
   res.redirect("/")
 })
 
