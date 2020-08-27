@@ -17,9 +17,15 @@
           <input type="checkbox">
           <p><%= items[i] %></p>
         </div>
+        <% if (limitReached ==true) { %>
+        <!-- some code logic here -->
+        <% } %>
       <% }%>
       <form class="item" action="/" method="post">
-        <input type="text" name="newItem" autofocus placeholder="New Item" autocomplete="off" required>
+        <input type="text" name="newItem" autofocus placeholder="New Item (/d to delete the previous item)" autocomplete="off" title='you have reached your limit. You can only enter /d'
+        oninvalid="this.setCustomValidity('You have reached your limit. You can only enter /d')"
+        onchange="try{setCustomValidity('')}catch(e){}"
+        oninput="setCustomValidity(' ')" <%= pattern %> required>
         <button type="submit" name="submit">+</button>
       </form>
     </div>
